@@ -1,2 +1,4 @@
 Results/HA_Data/*
 __pycache__/*
+
+env/*

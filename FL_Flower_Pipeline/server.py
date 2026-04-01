@@ -65,7 +65,7 @@ def main():
     print(f"Pretrained option: {args.pretrained_enabled}")
 
     num_clients = 3
-    num_rounds = 10
+    num_rounds = 100
 
     input_shape = (5, )
 
