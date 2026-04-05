@@ -1,4 +1,6 @@
 Results/HA_Data/*
+Results/QUD/*
+Results/DRED/*
 __pycache__/*
 
 env/*

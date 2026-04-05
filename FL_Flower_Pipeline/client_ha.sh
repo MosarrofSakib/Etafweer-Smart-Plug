@@ -5,6 +5,7 @@ source env/bin/activate
 
 TODAY=$(date +%Y-%m-%d)
 HA_PATH="SSFL/Data/sensor_data_${TODAY}.csv"
+CLIENT_ID=1
 
 echo "Using data file: $HA_PATH"
 
@@ -14,6 +15,6 @@ if [ ! -f "$HA_PATH" ]; then
 fi
 
 python client.py \
-    --client_id=1 \
-    --stage=Post \
-    --raw_data_path="$HA_PATH"
+    --client_id="$CLIENT_ID" \
+    --stage Post \
+    --raw_data_path "$HA_PATH"

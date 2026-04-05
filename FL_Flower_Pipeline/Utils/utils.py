@@ -85,8 +85,13 @@ def process_ssfl_data(dataset_root_dir, ha_data):
 
     labeled_data = labeled_d.drop(columns=["label"])
 
+    if "label" in ha_data.columns:
+        ha_data_d = ha_data.drop(columns=["label"])
+    else:
+        ha_data_d = ha_data.copy()
+
     # ====== STEP 1: extract X and y ======
-    data_x = ha_data.iloc[:, :5].values    # features
+    data_x = ha_data_d.iloc[:, :5].values    # features
 
     # ====== STEP 2: model predictions ======
     model = load_model(model_path)
@@ -99,7 +104,7 @@ def process_ssfl_data(dataset_root_dir, ha_data):
     mask = probs >= 0.90                        # threshold: 0.9
 
     # filter data_x, data_y, pseudo_labels
-    client_data_conf = ha_data[mask]        # keep only confident samples
+    client_data_conf = ha_data_d[mask]        # keep only confident samples
     pseudo_labels_conf = pseudo_labels[mask]
 
     # ====== STEP 4: add pseudo-labels to filtered rows ======

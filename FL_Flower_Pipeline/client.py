@@ -84,8 +84,8 @@ def main() -> None:
     parser.add_argument(
         "--dataset",
         type=str,
-        choices=["QUD", "DRED"],
-        default="DRED",
+        choices=["QUD", "DRED", "HA"],
+        default="QUD",
         help="Choose the dataset from the options",
     )
 
@@ -114,6 +114,7 @@ def main() -> None:
     args, _ = parser.parse_known_args()
 
     if args.stage == "Pre":
+        # This is for QUD and DRED  datasets
         dataset_name = f"client_{args.client_id}_data.csv"
 
         dataset_path = os.path.join(dataset_root, "SSFL_DATA")
@@ -121,9 +122,12 @@ def main() -> None:
         data_path = os.path.join(
             dataset_path, f"{args.dataset}/{dataset_name}")
 
-        data = process_ssfl_data(dataset_path, data_path)
+        data_pre = pd.read_csv(data_path)
+
+        data = process_ssfl_data(dataset_path, data_pre)
 
     elif args.stage == "Post":
+        # This is for raw collected data
         dataset_name = "HA_Data"
         args.dataset = dataset_name
         HA_data_path = args.raw_data_path
